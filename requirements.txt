@@ -1,4 +1,6 @@
+git+https://github.com/mikeckennedy/fastapi-chameleon
 attrs==19.3.0
+aiofiles==0.7.0
 click==7.1.1
 fastapi==0.65.1
 pypans==0.0.15

@@ -1,17 +1,36 @@
 """Represents executable entrypoint for `pypi` application."""
-from typing import Dict
+import fastapi
+import uvicorn
+import fastapi_chameleon
+from starlette.staticfiles import StaticFiles
 
-from fastapi import FastAPI
-from uvicorn import run
+from pypi import STATIC, TEMPLATES
+from pypi.views import account, home, packages
 
-api = FastAPI()
-
-
-@api.get('/')
-async def index() -> Dict[str, str]:
-    """Returns a home page."""
-    return {'message': 'FastAPI homepage'}
+app = fastapi.FastAPI()
 
 
-if __name__ == "__main__":
-    run(api, host='0.0.0.0', port=5001)
+def main() -> None:
+    configure()
+    uvicorn.run(app, host='0.0.0.0', port=8080)
+
+
+def configure_templates():
+    fastapi_chameleon.global_init(template_folder=TEMPLATES)
+
+
+def configure_routes():
+    app.mount('/static', StaticFiles(directory=STATIC))
+    for router in account.router, home.router, packages.router:
+        app.include_router(router)
+
+
+def configure() -> None:
+    configure_templates()
+    configure_routes()
+
+
+if __name__ == '__main__':
+    main()
+else:
+    configure()
