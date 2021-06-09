@@ -1,11 +1,17 @@
 """Represents executable entrypoint for `pypi` application."""
+from typing import Dict
+
+from fastapi import FastAPI
+from uvicorn import run
+
+api = FastAPI()
 
 
-def main() -> None:
-    """Runs `pypi` application."""
-
-    pass
+@api.get('/')
+async def index() -> Dict[str, str]:
+    """Returns a home page."""
+    return {'message': 'FastAPI homepage'}
 
 
 if __name__ == "__main__":
-    main()
+    run(api, host='0.0.0.0', port=5001)
