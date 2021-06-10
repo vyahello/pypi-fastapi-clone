@@ -7,12 +7,12 @@ from starlette.staticfiles import StaticFiles
 from pypi import STATIC, TEMPLATES
 from pypi.views import account, home, packages
 
-app = fastapi.FastAPI()
+pypi_app = fastapi.FastAPI()
 
 
 def main() -> None:
     configure()
-    uvicorn.run(app, host='0.0.0.0', port=8080)
+    uvicorn.run(pypi_app, host='0.0.0.0', port=8080)
 
 
 def configure_templates() -> None:
@@ -20,9 +20,9 @@ def configure_templates() -> None:
 
 
 def configure_routes() -> None:
-    app.mount('/static', StaticFiles(directory=STATIC))
+    pypi_app.mount('/static', StaticFiles(directory=STATIC))
     for router in account.router, home.router, packages.router:
-        app.include_router(router)
+        pypi_app.include_router(router)
 
 
 def configure() -> None:
