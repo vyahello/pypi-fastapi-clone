@@ -32,6 +32,8 @@
 
 ```bash
 git clone git@github.com:vyahello/pypi.git
+cd pypi
+pip install -r requirements.txt
 python -m pypi
 ```
 **[⬆ back to top](#pypi-clone)**
