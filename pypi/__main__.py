@@ -15,11 +15,11 @@ def main() -> None:
     uvicorn.run(app, host='0.0.0.0', port=8080)
 
 
-def configure_templates():
+def configure_templates() -> None:
     fastapi_chameleon.global_init(template_folder=TEMPLATES)
 
 
-def configure_routes():
+def configure_routes() -> None:
     app.mount('/static', StaticFiles(directory=STATIC))
     for router in account.router, home.router, packages.router:
         app.include_router(router)
