@@ -13,7 +13,6 @@ router = fastapi.APIRouter()
 @router.get('/')
 @fastapi_chameleon.template()
 async def index(request: Request) -> Dict[str, Any]:
-    # returns json by default
     index_model = IndexViewModel(request)
     return index_model.to_dict()
 
@@ -21,5 +20,5 @@ async def index(request: Request) -> Dict[str, Any]:
 @router.get('/about')
 @fastapi_chameleon.template()
 async def about(request: Request) -> Dict[str, Any]:
-    vm = ViewModelBase(request)
-    return vm.to_dict()
+    base_vm = ViewModelBase(request)
+    return base_vm.to_dict()

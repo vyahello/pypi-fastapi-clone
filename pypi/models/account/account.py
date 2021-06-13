@@ -1,5 +1,10 @@
+from starlette.requests import Request
+
+from pypi.data.user import User
 from pypi.models.base import ViewModelBase
 
 
 class AccountViewModel(ViewModelBase):
-    pass
+    def __init__(self, request: Request) -> None:
+        super().__init__(request)
+        self.user = User('Mike', 'mike@gmail.com', 'password')

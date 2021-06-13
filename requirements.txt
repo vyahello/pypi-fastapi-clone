@@ -7,3 +7,4 @@ pypans==0.0.15
 pydantic==1.8.2
 starlette==0.14.2
 uvicorn==0.14.0
+python-multipart==0.0.5
