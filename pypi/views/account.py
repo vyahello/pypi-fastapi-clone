@@ -29,7 +29,7 @@ def register(request: Request) -> Dict[str, Any]:  # noqa: F811
     return register_vm.to_dict()
 
 
-@router.post('/account/register')  # type: ignore
+@router.post('/account/register')  # type: ignore  # noqa: F811
 @fastapi_chameleon.template()
 async def register(  # noqa: F811
     request: Request,
@@ -56,7 +56,7 @@ def login(request: Request) -> Dict[str, Any]:
     return login_vm.to_dict()
 
 
-@router.get('/account/login')  # type: ignore
+@router.get('/account/login')  # type: ignore  # noqa: F811
 @fastapi_chameleon.template(template_file='account/login.pt')
 async def login(request: Request) -> Dict[str, Any]:  # noqa: F811
     login_vm = LoginViewModel(request)
