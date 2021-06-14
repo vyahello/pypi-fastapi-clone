@@ -1,24 +1,44 @@
-from typing import List, Optional
+import datetime
+from typing import List
+
+import sqlalchemy as sa
+import sqlalchemy.orm as orm
+from pypi.database.modelbase import SqlAlchemyBase
+from pypi.database.release import Release
 
 
-class Package:
-    def __init__(  # noqa: CFQ002
-        self,
-        package_name: str,
-        summary: str,
-        description: str,
-        home_page: str,
-        lic: str,
-        author_name: str,
-        maintainers: Optional[List[str]] = None,
-    ) -> None:
-        if not maintainers:
-            self.maintainers: List[str] = []
-        self.package_name = package_name
-        self.id = package_name
-        self.summary = summary
-        self.description = description
-        self.home_page = home_page
-        self.license = lic
-        self.author_name = author_name
-        self.maintainers = maintainers  # type: ignore
+class Package(SqlAlchemyBase):
+    __tablename__ = 'packages'
+
+    id: str = sa.Column(sa.String, primary_key=True)
+    created_date: datetime.datetime = sa.Column(
+        sa.DateTime, default=datetime.datetime.now, index=True
+    )
+    last_updated: datetime.datetime = sa.Column(
+        sa.DateTime, default=datetime.datetime.now, index=True
+    )
+    summary: str = sa.Column(sa.String, nullable=False)
+    description: str = sa.Column(sa.String, nullable=True)
+
+    home_page: str = sa.Column(sa.String)
+    docs_url: str = sa.Column(sa.String)
+    package_url: str = sa.Column(sa.String)
+
+    author_name: str = sa.Column(sa.String)
+    author_email: str = sa.Column(sa.String, index=True)
+
+    license: str = sa.Column(sa.String, index=True)
+
+    # releases relationship
+    releases: List[Release] = orm.relation(
+        "Release",
+        order_by=[
+            Release.major_ver.desc(),
+            Release.minor_ver.desc(),
+            Release.build_ver.desc(),
+        ],
+        back_populates='package',
+    )
+
+    def __repr__(self) -> str:
+        return '<Package {}>'.format(self.id)

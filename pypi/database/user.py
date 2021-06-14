@@ -1,13 +1,20 @@
 import datetime
-from typing import Optional
+import sqlalchemy as sa
+
+from pypi.database.modelbase import SqlAlchemyBase
 
 
-class User:
-    def __init__(self, name: str, email: str, hash_password: str) -> None:
-        self.id = 1
-        self.name = name
-        self.email = email
-        self.hash_password = hash_password
-        self.created_date = None
-        self.profile_image_url = ''
-        self.last_login: Optional[datetime.datetime] = None
+class User(SqlAlchemyBase):
+    __tablename__ = 'users'
+
+    id: int = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
+    name: str = sa.Column(sa.String)
+    email: str = sa.Column(sa.String, index=True, unique=True)
+    hash_password: str = sa.Column(sa.String)
+    created_date: datetime.datetime = sa.Column(
+        sa.DateTime, default=datetime.datetime.now, index=True
+    )
+    last_login: datetime.datetime = sa.Column(
+        sa.DateTime, default=datetime.datetime.now, index=True
+    )
+    profile_image_url: str = sa.Column(sa.String)
