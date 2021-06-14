@@ -2,9 +2,9 @@ from typing import Any, Dict, List, Optional
 
 import sqlalchemy.orm
 
-from pypi.database.package import Package
-from pypi.database.release import Release
-from pypi.database import db_session
+from pypi.tables.package import Package
+from pypi.tables.release import Release
+from pypi.tables import db_session
 
 
 def release_count() -> int:

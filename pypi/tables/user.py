@@ -1,7 +1,7 @@
 import datetime
 import sqlalchemy as sa
 
-from pypi.database.modelbase import SqlAlchemyBase
+from pypi.tables.modelbase import SqlAlchemyBase
 
 
 class User(SqlAlchemyBase):

@@ -12,10 +12,10 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 )
 
-import pypi.database.db_session as db_session
-from pypi.database.package import Package
-from pypi.database.release import Release
-from pypi.database.user import User
+import pypi.tables.db_session as db_session
+from pypi.tables.package import Package
+from pypi.tables.release import Release
+from pypi.tables.user import User
 
 
 def main():

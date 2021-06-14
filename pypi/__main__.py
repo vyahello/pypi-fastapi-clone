@@ -7,7 +7,7 @@ import fastapi_chameleon
 from starlette.staticfiles import StaticFiles
 
 from pypi import STATIC, TEMPLATES
-from pypi.database import db_session
+from pypi.tables import db_session
 from pypi.views import account, home, packages
 
 pypi_app = fastapi.FastAPI()

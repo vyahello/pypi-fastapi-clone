@@ -2,8 +2,8 @@ from typing import Optional
 
 from passlib.handlers.sha2_crypt import sha512_crypt as crypto
 
-from pypi.database import db_session
-from pypi.database.user import User
+from pypi.tables import db_session
+from pypi.tables.user import User
 
 
 def user_count() -> int:

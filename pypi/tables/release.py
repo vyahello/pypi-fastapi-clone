@@ -1,7 +1,7 @@
 import datetime
 import sqlalchemy
 import sqlalchemy.orm as orm
-from pypi.database.modelbase import SqlAlchemyBase
+from pypi.tables.modelbase import SqlAlchemyBase
 
 
 class Release(SqlAlchemyBase):

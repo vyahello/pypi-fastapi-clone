@@ -3,8 +3,8 @@ from typing import List
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from pypi.database.modelbase import SqlAlchemyBase
-from pypi.database.release import Release
+from pypi.tables.modelbase import SqlAlchemyBase
+from pypi.tables.release import Release
 
 
 class Package(SqlAlchemyBase):

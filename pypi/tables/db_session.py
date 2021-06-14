@@ -5,7 +5,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from sqlalchemy.orm import Session
 
-from pypi.database.modelbase import SqlAlchemyBase
+from pypi.tables.modelbase import SqlAlchemyBase
 
 __factory: Optional[Callable[[], Session]] = None
 
@@ -30,7 +30,7 @@ def global_init(db_file: str) -> None:
     )
     __factory = orm.sessionmaker(bind=engine)
 
-    import pypi.database._models  # noqa: F401
+    import pypi.tables._models  # noqa: F401
 
     SqlAlchemyBase.metadata.create_all(engine)
 
