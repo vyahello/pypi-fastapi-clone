@@ -1,3 +1,4 @@
+import asyncio
 from typing import Any, Dict
 
 import fastapi
@@ -17,8 +18,9 @@ router = fastapi.APIRouter()
 
 @router.get('/account')
 @fastapi_chameleon.template()
-def index(request: Request) -> Dict[str, Any]:
+async def index(request: Request) -> Dict[str, Any]:
     account_vm = AccountViewModel(request)
+    await account_vm.load()
     return account_vm.to_dict()
 
 
@@ -39,13 +41,14 @@ async def register(  # noqa: F811
 
     if register_vm.error:
         return register_vm.to_dict()
-    account = user.create_account(
+    account = await user.create_account(
         register_vm.name, register_vm.email, register_vm.password
     )
     response = fastapi.responses.RedirectResponse(
         url='/account', status_code=status.HTTP_302_FOUND
     )
     cookie.set_auth(response, account.id)
+
     return response
 
 
@@ -65,21 +68,21 @@ async def login(request: Request) -> Dict[str, Any]:  # noqa: F811
     if login_vm.error:
         return login_vm.to_dict()
 
-    logged_user = user.login_user(login_vm.email, login_vm.password)
+    logged_user = await user.login_user(login_vm.email, login_vm.password)
     if not logged_user:
-        login_vm.error = 'The account does not exist or the password is wrong.'
+        await asyncio.sleep(5)
+        login_vm.error = "The account does not exist or the password is wrong."
         return login_vm.to_dict()
 
-    resp = fastapi.responses.RedirectResponse(
+    response = fastapi.responses.RedirectResponse(
         '/account', status_code=status.HTTP_302_FOUND
     )
-    cookie.set_auth(resp, logged_user.id)
-
-    return resp
+    cookie.set_auth(response, logged_user.id)
+    return response
 
 
 @router.get('/account/logout')
-def logout(_: Request) -> fastapi.responses.RedirectResponse:  # noqa: U101
+def logout() -> fastapi.responses.RedirectResponse:
     response = fastapi.responses.RedirectResponse(
         url='/', status_code=status.HTTP_302_FOUND
     )

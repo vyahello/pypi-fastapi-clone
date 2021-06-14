@@ -1,5 +1,3 @@
-from typing import Any, List
-
 from starlette.requests import Request
 
 from pypi.services import package
@@ -11,20 +9,22 @@ class DetailsViewModel(ViewModelBase):
         super().__init__(request)
 
         self.package_name = package_name
-        self.package = package.get_package_by_id(package_name)
-        self.latest_release = package.get_latest_release_for_package(
-            package_name
-        )
         self.latest_version = '0.0.0'
         self.is_latest = True
-        self.maintainers: List[Any] = []
+        self.maintainers = []
+        self.package = None
+        self.latest_release = None
+
+    async def load(self) -> None:
+        self.package = await package.get_package_by_id(self.package_name)
+        self.latest_release = await package.get_latest_release_for_package(
+            self.package_name
+        )
 
         if not self.package or not self.latest_version:
-            return
+            return None
 
         release = self.latest_release
         self.latest_version = (
-            f'{release.major_ver}.'  # type: ignore
-            f'{release.minor_ver}.{release.build_ver}'
+            f'{release.major_ver}.{release.minor_ver}.{release.build_ver}'
         )
-        self.maintainers = []

@@ -36,9 +36,18 @@ cd pypi
 pip install -r requirements.txt
 python -m pypi
 ```
+
+Then please open http://0.0.0.0:8000 in your browser.
+
 **[⬆ back to top](#pypi-clone)**
 
 ## Development notes
+
+### Load PYPI DB
+
+```bash
+python pypi/bin/load_db.py
+```
 
 ### Testing
 

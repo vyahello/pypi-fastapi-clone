@@ -25,5 +25,5 @@ class RegisterViewModel(ViewModelBase):
             self.error = 'Your email is required.'
         elif not self.password or len(self.password) < 5:
             self.error = 'Your password is required and must be at 5 chars.'
-        elif user.get_user_by_email(self.email):
+        elif await user.get_user_by_email(self.email):
             self.error = 'That email is already taken.'

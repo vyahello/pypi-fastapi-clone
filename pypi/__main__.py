@@ -7,7 +7,7 @@ import fastapi_chameleon
 from starlette.staticfiles import StaticFiles
 
 from pypi import STATIC, TEMPLATES
-from pypi.tables import db_session
+from pypi.tables import session
 from pypi.views import account, home, packages
 
 pypi_app = fastapi.FastAPI()
@@ -20,7 +20,7 @@ def main() -> None:
 
 def configure_database() -> None:
     db_file = (Path(__file__).parent / 'db' / 'pypi.sqlite').absolute()
-    db_session.global_init(db_file.as_posix())
+    session.global_init(db_file.as_posix())
 
 
 def configure_templates() -> None:

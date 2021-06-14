@@ -10,7 +10,15 @@ class IndexViewModel(ViewModelBase):
     def __init__(self, request: Request) -> None:
         super().__init__(request)
 
-        self.release_count: int = package.release_count()
-        self.user_count: int = user.user_count()
-        self.package_count: int = package.package_count()
-        self.packages: List[Dict[str, Any]] = package.latest_packages(limit=5)
+        self.release_count: int = 0
+        self.user_count: int = 0
+        self.package_count: int = 0
+        self.packages: List = []
+
+    async def load(self):
+        self.release_count: int = await package.release_count()
+        self.user_count: int = await user.user_count()
+        self.package_count: int = await package.package_count()
+        self.packages: List[Dict[str, Any]] = await package.latest_packages(
+            limit=5
+        )

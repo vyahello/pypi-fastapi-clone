@@ -14,6 +14,7 @@ router = fastapi.APIRouter()
 @fastapi_chameleon.template()
 async def index(request: Request) -> Dict[str, Any]:
     index_model = IndexViewModel(request)
+    await index_model.load()
     return index_model.to_dict()
 
 
