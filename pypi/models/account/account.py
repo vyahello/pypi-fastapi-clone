@@ -1,6 +1,6 @@
 from starlette.requests import Request
 
-from pypi.data.user import User
+from pypi.database.user import User
 from pypi.models.base import ViewModelBase
 
 

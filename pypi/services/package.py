@@ -1,8 +1,8 @@
 import datetime
 from typing import Dict, List, Optional
 
-from pypi.data.package import Package
-from pypi.data.release import Release
+from pypi.database.package import Package
+from pypi.database.release import Release
 
 
 def release_count() -> int:

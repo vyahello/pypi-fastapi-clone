@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pypi.data.user import User
+from pypi.database.user import User
 
 __fake_password = 'abc'
 __fake_user = 'test'
