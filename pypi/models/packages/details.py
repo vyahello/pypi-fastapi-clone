@@ -1,3 +1,4 @@
+# type: ignore
 from starlette.requests import Request
 
 from pypi.services import package

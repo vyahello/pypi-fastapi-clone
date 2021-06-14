@@ -4,7 +4,7 @@ import fastapi
 import fastapi_chameleon
 from starlette.requests import Request
 
-from pypi.models.packages.details import DetailsViewModel
+from pypi.models.packages.details import DetailsViewModel  # type: ignore
 
 router = fastapi.APIRouter()
 

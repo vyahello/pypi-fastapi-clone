@@ -1,6 +1,5 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Build Status](https://travis-ci.org/vyahello/pypi.svg?branch=master)](https://travis-ci.org/vyahello/pypi)
-[![Coverage Status](https://coveralls.io/repos/github/vyahello/pypi/badge.svg?branch=master)](https://coveralls.io/github/vyahello/pypi?branch=master)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Checked with flake8](https://img.shields.io/badge/flake8-checked-blue)](http://flake8.pycqa.org/)
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
@@ -37,7 +36,7 @@ pip install -r requirements.txt
 python -m pypi
 ```
 
-Then please open http://0.0.0.0:8000 in your browser.
+Then please open http://0.0.0.0:8080 in your browser.
 
 **[⬆ back to top](#pypi-clone)**
 

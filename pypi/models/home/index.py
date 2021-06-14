@@ -1,3 +1,4 @@
+# type: ignore
 from typing import Any, Dict, List
 
 from starlette.requests import Request
@@ -15,7 +16,7 @@ class IndexViewModel(ViewModelBase):
         self.package_count: int = 0
         self.packages: List = []
 
-    async def load(self):
+    async def load(self) -> None:
         self.release_count: int = await package.release_count()
         self.user_count: int = await user.user_count()
         self.package_count: int = await package.package_count()
