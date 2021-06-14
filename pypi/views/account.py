@@ -56,7 +56,7 @@ def login(request: Request) -> Dict[str, Any]:
     return login_vm.to_dict()
 
 
-@router.get('/account/login')  # type: ignore  # noqa: F811
+@router.post('/account/login')  # type: ignore  # noqa: F811
 @fastapi_chameleon.template(template_file='account/login.pt')
 async def login(request: Request) -> Dict[str, Any]:  # noqa: F811
     login_vm = LoginViewModel(request)
@@ -67,20 +67,19 @@ async def login(request: Request) -> Dict[str, Any]:  # noqa: F811
 
     logged_user = user.login_user(login_vm.email, login_vm.password)
     if not logged_user:
-        login_vm.error = "The account does not exist or the password is wrong."
+        login_vm.error = 'The account does not exist or the password is wrong.'
         return login_vm.to_dict()
 
-    response = fastapi.responses.RedirectResponse(
+    resp = fastapi.responses.RedirectResponse(
         '/account', status_code=status.HTTP_302_FOUND
     )
-    cookie.set_auth(response, logged_user.id)
-    return response
+    cookie.set_auth(resp, logged_user.id)
+
+    return resp
 
 
 @router.get('/account/logout')
-def logout(
-    request: Request,  # noqa: U100
-) -> fastapi.responses.RedirectResponse:
+def logout(_: Request) -> fastapi.responses.RedirectResponse:  # noqa: U101
     response = fastapi.responses.RedirectResponse(
         url='/', status_code=status.HTTP_302_FOUND
     )

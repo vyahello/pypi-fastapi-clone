@@ -1,10 +1,13 @@
 """Represents executable entrypoint for `pypi` application."""
+from pathlib import Path
+
 import fastapi
 import uvicorn
 import fastapi_chameleon
 from starlette.staticfiles import StaticFiles
 
 from pypi import STATIC, TEMPLATES
+from pypi.database import db_session
 from pypi.views import account, home, packages
 
 pypi_app = fastapi.FastAPI()
@@ -13,6 +16,11 @@ pypi_app = fastapi.FastAPI()
 def main() -> None:
     configure()
     uvicorn.run(pypi_app, host='0.0.0.0', port=8080)
+
+
+def configure_database() -> None:
+    db_file = (Path(__file__).parent / 'db' / 'pypi.sqlite').absolute()
+    db_session.global_init(db_file.as_posix())
 
 
 def configure_templates() -> None:
@@ -28,6 +36,7 @@ def configure_routes() -> None:
 def configure() -> None:
     configure_templates()
     configure_routes()
+    configure_database()
 
 
 if __name__ == '__main__':

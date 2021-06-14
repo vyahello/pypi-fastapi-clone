@@ -53,7 +53,7 @@ check-unittests() {
 :<<DOC
     Runs unittests using "pytest" framework
 DOC
-    pretty-printer-box "unitests" && pytest
+    pretty-printer-box "unit tests" && pytest
 }
 
 
@@ -62,14 +62,11 @@ main() {
 :<<DOC
     Runs "main" code analyser
 DOC
-    (
-      remove-pycache
-      check-black && \
-      check-flake && \
-      check-mypy && \
-      check-unittests
-    )
-    return 0
+    remove-pycache
+    check-black && \
+    check-flake && \
+    check-mypy && \
+    check-unittests
 }
 
 main
