@@ -1,39 +1,63 @@
-import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
+
+import sqlalchemy.orm
 
 from pypi.database.package import Package
 from pypi.database.release import Release
+from pypi.database import db_session
 
 
 def release_count() -> int:
-    return 2_234_847
+    session = db_session.create_session()
+    try:
+        return session.query(Release).count()
+    finally:
+        session.close()
 
 
 def package_count() -> int:
-    return 274_000
+    session = db_session.create_session()
+    try:
+        return session.query(Package).count()
+    finally:
+        session.close()
 
 
-def latest_packages(limit: int = 5) -> List[Dict[str, str]]:
-    return [
-        {'id': 'fastapi', 'summary': 'A great web framework'},
-        {'id': 'uvicorn', 'summary': 'Your favorite ASGI server'},
-        {'id': 'httpx', 'summary': 'Requests for an async world'},
-    ][:limit]
+def latest_packages(limit: int = 5) -> List[Dict[str, Any]]:
+    session = db_session.create_session()
+    try:
+        releases = (
+            session.query(Release)
+            .options(sqlalchemy.orm.joinedload(Release.package))
+            .order_by(Release.created_date.desc())
+            .limit(limit)
+            .all()
+        )
+    finally:
+        session.close()
+    return list({r.package for r in releases})
 
 
 def get_package_by_id(package_name: str) -> Optional[Package]:
-    package = Package(
-        package_name,
-        'This is the summary',
-        'Full details here',
-        'https://github.com/vyahello/pypi',
-        'MIT',
-        'VLADIMIR YAHELLO',
-    )
-    return package
+    session = db_session.create_session()
+    try:
+        package = (
+            session.query(Package).filter(Package.id == package_name).first()
+        )
+        return package
+    finally:
+        session.close()
 
 
-def get_latest_release_for_package(
-    package_name: str,  # noqa: U100
-) -> Optional[Release]:
-    return Release('1.2.0', datetime.datetime.now())
+def get_latest_release_for_package(package_name: str) -> Optional[Release]:
+    session = db_session.create_session()
+    try:
+        release = (
+            session.query(Release)
+            .filter(Release.package_id == package_name)
+            .order_by(Release.created_date.desc())
+            .first()
+        )
+        return release
+    finally:
+        session.close()

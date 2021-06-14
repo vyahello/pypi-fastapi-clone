@@ -15,7 +15,7 @@ class Release(SqlAlchemyBase):
     minor_ver = sqlalchemy.Column(sqlalchemy.BigInteger, index=True)
     build_ver = sqlalchemy.Column(sqlalchemy.BigInteger, index=True)
 
-    created_date: datetime.datetime = sqlalchemy.Column(
+    created_date = sqlalchemy.Column(
         sqlalchemy.DateTime, default=datetime.datetime.now, index=True
     )
     comment: str = sqlalchemy.Column(sqlalchemy.String)

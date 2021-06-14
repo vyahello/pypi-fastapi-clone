@@ -1,3 +1,5 @@
+from typing import Any, List
+
 from starlette.requests import Request
 
 from pypi.services import package
@@ -15,10 +17,14 @@ class DetailsViewModel(ViewModelBase):
         )
         self.latest_version = '0.0.0'
         self.is_latest = True
-        self.maintainers = []
+        self.maintainers: List[Any] = []
 
         if not self.package or not self.latest_version:
             return
 
-        self.latest_version = self.latest_release.version  # type: ignore
-        self.maintainers = self.package.maintainers
+        release = self.latest_release
+        self.latest_version = (
+            f'{release.major_ver}.'  # type: ignore
+            f'{release.minor_ver}.{release.build_ver}'
+        )
+        self.maintainers = []

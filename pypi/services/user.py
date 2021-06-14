@@ -1,20 +1,60 @@
 from typing import Optional
 
-from pypi.database.user import User
+from passlib.handlers.sha2_crypt import sha512_crypt as crypto
 
-__fake_password = 'abc'
-__fake_user = 'test'
+from pypi.database import db_session
+from pypi.database.user import User
 
 
 def user_count() -> int:
-    return 73_448
+    session = db_session.create_session()
+    try:
+        return session.query(User).count()
+    finally:
+        session.close()
 
 
 def create_account(name: str, email: str, password: str) -> User:
-    return User(name, email, password)
+    session = db_session.create_session()
+    try:
+        user = User()
+        user.email = email
+        user.name = name
+        user.hash_password = crypto.hash(password, rounds=172_434)
+        session.add(user)
+        session.commit()
+        return user
+    finally:
+        session.close()
 
 
 def login_user(email: str, password: str) -> Optional[User]:
-    if password == __fake_password:
-        return User(__fake_user, email, __fake_password)
-    return None
+    session = db_session.create_session()
+    try:
+        user = session.query(User).filter(User.email == email).first()
+        if not user:
+            return user
+
+        if not crypto.verify(password, user.hash_password):
+            return None
+        return user
+    finally:
+        session.close()
+
+
+def get_user_by_id(user_id: int) -> Optional[User]:
+    session = db_session.create_session()
+
+    try:
+        return session.query(User).filter(User.id == user_id).first()
+    finally:
+        session.close()
+
+
+def get_user_by_email(email: str) -> Optional[User]:
+    session = db_session.create_session()
+
+    try:
+        return session.query(User).filter(User.email == email).first()
+    finally:
+        session.close()
