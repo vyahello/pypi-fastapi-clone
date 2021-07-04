@@ -46,6 +46,10 @@ Then please open http://0.0.0.0:8080 in your browser.
 
 ## Development notes
 
+### Deployment
+
+Please refer to linux deployment procedure at [fast-weather-api-deployment](https://github.com/vyahello/fast-weather-api#deployment)
+
 ### Load PYPI DB
 
 ```bash
