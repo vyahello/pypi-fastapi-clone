@@ -33,6 +33,8 @@
 
 ```bash
 git clone git@github.com:vyahello/pypi.git
+python3 -m venv venv 
+. venv/bin/activate
 cd pypi
 pip install -r requirements.txt
 python -m pypi
@@ -97,7 +99,7 @@ I would highly appreciate any contribution and support. If you are interested to
 
 ### What's next
 
-All recent activities and ideas are described at project [issues](https://github.com/Vladimir Yahello/pypi/issues) page. 
+All recent activities and ideas are described at project [issues](https://github.com/vyahello/pypi/issues) page. 
 If you have ideas you want to change/implement please do not hesitate and create an issue.
 
 **[⬆ back to top](#pypi-clone)**
