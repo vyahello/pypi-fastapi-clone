@@ -7,6 +7,7 @@
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
+[![Docker pulls](https://img.shields.io/docker/pulls/vyahello/pypi.svg)](https://hub.docker.com/repository/docker/vyahello/pypi)
 
 
 # PYPI clone
@@ -29,7 +30,15 @@
 
 ## Usage
 
-### Quick start
+### Docker run
+
+```bash
+docker run -it -p 8080:8080 vyahello/pypi:0.1.0
+```
+
+Then please open http://0.0.0.0:8080 in your browser.
+
+### Source code
 
 ```bash
 git clone git@github.com:vyahello/pypi.git
@@ -46,7 +55,11 @@ Then please open http://0.0.0.0:8080 in your browser.
 
 ## Development notes
 
-### Deployment
+### Docker image build
+
+Please refer to docker image build procedure at [fast-weather-api-docker](https://github.com/vyahello/fast-weather-api#docker-image-build)
+
+### Linux deployment
 
 Please refer to linux deployment procedure at [fast-weather-api-deployment](https://github.com/vyahello/fast-weather-api#deployment)
 
