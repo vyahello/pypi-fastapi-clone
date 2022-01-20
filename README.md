@@ -30,7 +30,9 @@
 
 ## Usage
 
-Please check deployed pypi app [pypi-clone.herokuapp.com](https://pypi-clone.herokuapp.com)
+Please check deployed pypi app [pypi-clone.herokuapp.com](https://pypi-clone.herokuapp.com).
+
+![Demo](intro.gif)
 
 ### Docker run
 
