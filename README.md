@@ -45,7 +45,7 @@ Then please open http://0.0.0.0:8080 in your browser.
 ### Source code
 
 ```bash
-git clone git@github.com:vyahello/pypi.git
+git clone git@github.com:vyahello/pypi-fastapi-clone.git
 python3 -m venv venv 
 . venv/bin/activate
 cd pypi
