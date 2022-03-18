@@ -30,7 +30,9 @@
 
 ## Usage
 
-Please check deployed pypi app [pypi-clone.herokuapp.com](https://pypi-clone.herokuapp.com).
+Please check deployed pypi app via:
+  - https://pypi-clone.herokuapp.com (prod stage)
+  - http://178.62.222.165:5004 (test stage)
 
 ![Demo](intro.gif)
 
